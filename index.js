@@ -115,8 +115,8 @@ function questionTemplate() {
   const index = STATE.questionIndex;
   return `<header role="banner">
         <ul class="js-results results">
-          <li>Q: ${index + 1}/${ANSWERS.length}</li>
-          <li>Score: ${STATE.score}</li>
+          <li><b>Q:</b> ${index + 1}/${ANSWERS.length}</li>
+          <li><b>Score:</b> ${STATE.score}</li>
         </ul>
       </header>
       <section>
@@ -126,12 +126,14 @@ function questionTemplate() {
             <label class="question-choice-block">
               <input value="${
                 QUESTIONS[index].answers[0]
-              }" name="question" type="radio" />${QUESTIONS[index].answers[0]}
+              }" name="question" type="radio" required />${
+    QUESTIONS[index].answers[0]
+  }
             </label>
             <label class="question-choice-block">
               <input value="${
                 QUESTIONS[index].answers[1]
-              }" name="question" type="radio" />${QUESTIONS[index].answers[1]}
+              }" name="question" type="radio"  />${QUESTIONS[index].answers[1]}
             </label>
             <label class="question-choice-block">
               <input value="${
@@ -153,8 +155,8 @@ function questionResultTemplate() {
   const index = STATE.questionIndex;
   return `<header role="banner">
             <ul class="js-results results">
-              <li>Q: ${index + 1}/${ANSWERS.length}</li>
-              <li>Score: ${STATE.score}</li>
+              <li><b>Q:</b> ${index + 1}/${ANSWERS.length}</li>
+              <li><b>Score:</b> ${STATE.score}</li>
             </ul>
           </header>
           <section>
@@ -175,7 +177,7 @@ function questionResultTemplate() {
 function resultsTemplate() {
   return `<h1>Results:</h1>
           <img src="https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Fgmenhq.com%2Ffiles%2F2014%2F08%2Fmichael-strahan-nfl-hall-of-fame-enshrinees-gold-jacket-dinner.jpg" alt="Michael Strahan poses in his Hall of Fame jacket">
-          <p>Score: ${STATE.score}/${ANSWERS.length}</p>
+          <h2>Score: ${STATE.score}/${ANSWERS.length}</h2>
           <button class="restart-quiz js-restart-quiz" type="button">Take it again?</button>`;
 }
 
