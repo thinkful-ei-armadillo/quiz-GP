@@ -61,9 +61,63 @@ const STATE = {
   questionIndex: 0,
   score: 0,
   lastChoice: '',
-  currentView: 'START'
+  view: 'START'
 };
 
-function handleQuizApp() {}
+function startTemplate() {}
+
+function questionTemplate() {}
+
+function questionResultTemplate() {}
+
+function resultsTemplate() {}
+
+function renderView() {
+  if (STATE.view === 'START') {
+    $('section').html(startTemplate());
+  } else if (STATE.view === 'QUESTION') {
+    $('section').html(questionTemplate());
+  } else if (STATE.view === 'QUESTION_RESULT') {
+    $('section').html(questionResultTemplate());
+  } else {
+    $('section').html(resultsTemplate());
+  }
+}
+
+function initializeQuiz() {
+  STATE.questionIndex = 0;
+  STATE.score = 0;
+  STATE.currentView = 'START';
+}
+
+function updateCurrentView(view) {
+  STATE.view = view;
+}
+
+function handleStartQuiz() {
+  $('.start-button').click(function(event) {
+    updateCurrentView('QUESTION');
+    renderView();
+  });
+}
+
+function handleRestartQuiz() {
+  $('.restart-quiz').click(function(event) {
+    initializeQuiz();
+    updateCurrentView('START');
+    renderView();
+  });
+}
+
+function handleClickNext() {}
+
+function handleSubmitAnswer() {}
+
+function handleQuizApp() {
+  handleStartQuiz();
+  handleClickNext();
+  handleSubmitAnswer();
+  handleRestartQuiz();
+}
 
 $(handleQuizApp());
