@@ -105,7 +105,7 @@ const STATE = {
 };
 
 function startTemplate() {
-  return `<section>
+  return `<section class="start-screen">
         <h1>Welcome to the Sports Trivia!!!</h1>
         <button class="quiz-start js-quiz-start" type="button">Start</button>
       </section>`;
@@ -181,13 +181,13 @@ function resultsTemplate() {
 
 function renderView() {
   if (STATE.view === 'START') {
-    $('section').html(startTemplate());
+    $('main').html(startTemplate());
   } else if (STATE.view === 'QUESTION') {
-    $('section').html(questionTemplate());
+    $('main').html(questionTemplate());
   } else if (STATE.view === 'QUESTION_RESULT') {
-    $('section').html(questionResultTemplate());
+    $('main').html(questionResultTemplate());
   } else {
-    $('section').html(resultsTemplate());
+    $('main').html(resultsTemplate());
   }
 }
 
