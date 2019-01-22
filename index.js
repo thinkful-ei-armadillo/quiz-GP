@@ -125,25 +125,25 @@ function questionTemplate() {
           <fieldset>
             <label class="question-choice-block">
               <input value="${
-                QUESTIONS[index].answers[0]
-              }" name="question" type="radio" required />${
-    QUESTIONS[index].answers[0]
-  }
+  QUESTIONS[index].answers[0]
+}" name="question" type="radio" required />${
+  QUESTIONS[index].answers[0]
+}
             </label>
             <label class="question-choice-block">
               <input value="${
-                QUESTIONS[index].answers[1]
-              }" name="question" type="radio"  />${QUESTIONS[index].answers[1]}
+  QUESTIONS[index].answers[1]
+}" name="question" type="radio"  />${QUESTIONS[index].answers[1]}
             </label>
             <label class="question-choice-block">
               <input value="${
-                QUESTIONS[index].answers[2]
-              }" name="question" type="radio" />${QUESTIONS[index].answers[2]}
+  QUESTIONS[index].answers[2]
+}" name="question" type="radio" />${QUESTIONS[index].answers[2]}
             </label>
             <label class="question-choice-block">
               <input value="${
-                QUESTIONS[index].answers[3]
-              }" name="question" type="radio" />${QUESTIONS[index].answers[3]}
+  QUESTIONS[index].answers[3]
+}" name="question" type="radio" />${QUESTIONS[index].answers[3]}
             </label>
             <button type="submit" value="submit" class="submit-button js-submit-button">Submit</button>
           </fieldset>
@@ -166,10 +166,10 @@ function questionResultTemplate() {
               alt="${QUESTIONS[index].image.alt}"
             />
             ${
-              !STATE.correct
-                ? `<h2>The correct answer was ${ANSWERS[index]}</h2>`
-                : ''
-            }
+  !STATE.correct
+    ? `<h2>The correct answer was ${ANSWERS[index]}</h2>`
+    : ''
+}
             <button class="next-button js-next-button" type="button">Next</button>
           </section>`;
 }
