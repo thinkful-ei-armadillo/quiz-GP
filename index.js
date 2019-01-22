@@ -60,13 +60,46 @@ const ANSWERS = [
 const STATE = {
   questionIndex: 0,
   score: 0,
-  lastChoice: '',
+  correct: false,
   view: 'START'
 };
 
-function startTemplate() {}
+function startTemplate() {
+  return `<section>
+        <h1>Welcome to the Sports Trivia!!!</h1>
+        <button class="quiz-start js-quiz-start" type="button">Start</button>
+      </section>`;
+}
 
-function questionTemplate() {}
+function questionTemplate() {
+  const index = STATE.questionIndex;
+  return `<header role="banner">
+        <ul class="js-results results">
+          <li>Q: ${index+1}/10</li>
+          <li>Score: ${STATE.score}</li>
+        </ul>
+      </header>
+      <section>
+        <h1>${QUESTIONS[index].question}</h1>
+        <form class="question-form js-question-form">
+          <fieldset>
+            <label class="question-choice-block">
+              <input value="${QUESTIONS[index].answers[0]}" name="question" type="radio" />${QUESTIONS[index].answers[0]}
+            </label>
+            <label class="question-choice-block">
+              <input value="${QUESTIONS[index].answers[1]}" name="question" type="radio" />${QUESTIONS[index].answers[1]}
+            </label>
+            <label class="question-choice-block">
+              <input value="${QUESTIONS[index].answers[2]}" name="question" type="radio" />${QUESTIONS[index].answers[2]}
+            </label>
+            <label class="question-choice-block">
+              <input value="${QUESTIONS[index].answers[3]}" name="question" type="radio" />${QUESTIONS[index].answers[3]}
+            </label>
+            <button type="submit" value="submit" class="submit-button js-submit-button">Submit</button>
+          </fieldset>
+        </form>
+      </section>`;
+}
 
 function questionResultTemplate() {}
 
@@ -94,8 +127,18 @@ function updateCurrentView(view) {
   STATE.view = view;
 }
 
+function submitAnswer(input) {
+  updateCurrentView('QUESTION_RESULT');
+  if(input === ANSWERS[STATE.questionIndex]){
+    STATE.score++;
+    STATE.correct = true;
+  } else {
+    STATE.correct = false;
+  }
+}
+
 function handleStartQuiz() {
-  $('.start-button').click(function(event) {
+  $('.js-quiz-start').click(function(event) {
     updateCurrentView('QUESTION');
     renderView();
   });
@@ -111,7 +154,16 @@ function handleRestartQuiz() {
 
 function handleClickNext() {}
 
-function handleSubmitAnswer() {}
+function handleSubmitAnswer() {
+  $('main').on('submit', '.js-question-form', (function (event) {
+    debugger;
+    event.preventDefault();
+    const input = $(event.currentTarget).find('input[name="question"]:checked').val();
+    submitAnswer(input);
+    
+    renderView();
+  }));
+}
 
 function handleQuizApp() {
   handleStartQuiz();
