@@ -7,15 +7,30 @@ const QUESTIONS = [
       'Philadelphia Flyers',
       'Toronto Maple Leafs',
       'New York Rangers'
-    ]
+    ],
+    image: {
+      src:
+        'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
+      alt: ''
+    }
   },
   {
     question: 'When did Tiger Woods win his last major championship?',
-    answers: ['2000', '1997', '2008', '2018']
+    answers: ['2000', '1997', '2008', '2018'],
+    image: {
+      src:
+        'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
+      alt: ''
+    }
   },
   {
     question: 'How many Super Bowl rings does Eli Manning have?',
-    answers: ['0', '1', '2', '3']
+    answers: ['0', '1', '2', '3'],
+    image: {
+      src:
+        'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
+      alt: ''
+    }
   },
   {
     question: 'Who won the first World Series?',
@@ -24,25 +39,50 @@ const QUESTIONS = [
       'Boston Red Sox',
       'Chicago Cubs',
       'Brooklyn Dodgers'
-    ]
+    ],
+    image: {
+      src:
+        'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
+      alt: ''
+    }
   },
   {
     question:
       "How many times has the US Men's National Team won the FIFA World Cup?",
-    answers: ['0', '1', '2', '3']
+    answers: ['0', '1', '2', '3'],
+    image: {
+      src:
+        'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
+      alt: ''
+    }
   },
   {
     question:
       'Who was picked after Hakeem Olajuwon but before MJ in the 1984 NBA Draft?',
-    answers: ['Charles Barkley', 'Dennis Rodman', 'Sam Bowie', 'Sam Decker']
+    answers: ['Charles Barkley', 'Dennis Rodman', 'Sam Bowie', 'Sam Decker'],
+    image: {
+      src:
+        'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
+      alt: ''
+    }
   },
   {
     question: 'How many Grand Slams has Serena Williams won?',
-    answers: ['18', '10', '25', '23']
+    answers: ['18', '10', '25', '23'],
+    image: {
+      src:
+        'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
+      alt: ''
+    }
   },
   {
     question: 'How many NFL teams are based in New York?',
-    answers: ['1', '2', '3', '4']
+    answers: ['1', '2', '3', '4'],
+    image: {
+      src:
+        'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
+      alt: ''
+    }
   }
 ];
 
@@ -75,7 +115,7 @@ function questionTemplate() {
   const index = STATE.questionIndex;
   return `<header role="banner">
         <ul class="js-results results">
-          <li>Q: ${index+1}/10</li>
+          <li>Q: ${index + 1}/${ANSWERS.length}</li>
           <li>Score: ${STATE.score}</li>
         </ul>
       </header>
@@ -84,16 +124,24 @@ function questionTemplate() {
         <form class="question-form js-question-form">
           <fieldset>
             <label class="question-choice-block">
-              <input value="${QUESTIONS[index].answers[0]}" name="question" type="radio" />${QUESTIONS[index].answers[0]}
+              <input value="${
+                QUESTIONS[index].answers[0]
+              }" name="question" type="radio" />${QUESTIONS[index].answers[0]}
             </label>
             <label class="question-choice-block">
-              <input value="${QUESTIONS[index].answers[1]}" name="question" type="radio" />${QUESTIONS[index].answers[1]}
+              <input value="${
+                QUESTIONS[index].answers[1]
+              }" name="question" type="radio" />${QUESTIONS[index].answers[1]}
             </label>
             <label class="question-choice-block">
-              <input value="${QUESTIONS[index].answers[2]}" name="question" type="radio" />${QUESTIONS[index].answers[2]}
+              <input value="${
+                QUESTIONS[index].answers[2]
+              }" name="question" type="radio" />${QUESTIONS[index].answers[2]}
             </label>
             <label class="question-choice-block">
-              <input value="${QUESTIONS[index].answers[3]}" name="question" type="radio" />${QUESTIONS[index].answers[3]}
+              <input value="${
+                QUESTIONS[index].answers[3]
+              }" name="question" type="radio" />${QUESTIONS[index].answers[3]}
             </label>
             <button type="submit" value="submit" class="submit-button js-submit-button">Submit</button>
           </fieldset>
@@ -101,9 +149,35 @@ function questionTemplate() {
       </section>`;
 }
 
-function questionResultTemplate() {}
+function questionResultTemplate() {
+  const index = STATE.questionIndex;
+  return `<header role="banner">
+            <ul class="js-results results">
+              <li>Q: ${index + 1}/${ANSWERS.length}</li>
+              <li>Score: ${STATE.score}</li>
+            </ul>
+          </header>
+          <section>
+            <h1>${STATE.correct ? 'Correct!' : 'Incorrect :('}</h1>
+            <img
+              src="${QUESTIONS[index].image.src}"
+              alt="${QUESTIONS[index].image.alt}"
+            />
+            ${
+              !STATE.correct
+                ? `<h2>The correct answer was ${ANSWERS[index]}</h2>`
+                : ''
+            }
+            <button class="next-button js-next-button" type="button">Next</button>
+          </section>`;
+}
 
-function resultsTemplate() {}
+function resultsTemplate() {
+  return `<h1>Results:</h1>
+          <img src="https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Fgmenhq.com%2Ffiles%2F2014%2F08%2Fmichael-strahan-nfl-hall-of-fame-enshrinees-gold-jacket-dinner.jpg" alt="Michael Strahan poses in his Hall of Fame jacket">
+          <p>Score: ${STATE.score}/${ANSWERS.length}</p>
+          <button class="restart-quiz js-restart-quiz" type="button">Take it again?</button>`;
+}
 
 function renderView() {
   if (STATE.view === 'START') {
@@ -120,7 +194,7 @@ function renderView() {
 function initializeQuiz() {
   STATE.questionIndex = 0;
   STATE.score = 0;
-  STATE.currentView = 'START';
+  STATE.view = 'START';
 }
 
 function updateCurrentView(view) {
@@ -129,7 +203,7 @@ function updateCurrentView(view) {
 
 function submitAnswer(input) {
   updateCurrentView('QUESTION_RESULT');
-  if(input === ANSWERS[STATE.questionIndex]){
+  if (input === ANSWERS[STATE.questionIndex]) {
     STATE.score++;
     STATE.correct = true;
   } else {
@@ -137,32 +211,45 @@ function submitAnswer(input) {
   }
 }
 
+function clickNext() {
+  STATE.questionIndex++;
+  if (STATE.questionIndex === ANSWERS.length) {
+    STATE.view = 'RESULTS';
+  } else {
+    STATE.view = 'QUESTION';
+  }
+}
+
 function handleStartQuiz() {
-  $('.js-quiz-start').click(function(event) {
+  $('main').on('click', '.js-quiz-start', function(event) {
     updateCurrentView('QUESTION');
     renderView();
   });
 }
 
 function handleRestartQuiz() {
-  $('.restart-quiz').click(function(event) {
+  $('main').on('click', '.js-restart-quiz', function(event) {
     initializeQuiz();
-    updateCurrentView('START');
     renderView();
   });
 }
 
-function handleClickNext() {}
+function handleClickNext() {
+  $('main').on('click', '.js-next-button', function(event) {
+    clickNext();
+    renderView();
+  });
+}
 
 function handleSubmitAnswer() {
-  $('main').on('submit', '.js-question-form', (function (event) {
-    debugger;
+  $('main').on('submit', '.js-question-form', function(event) {
     event.preventDefault();
-    const input = $(event.currentTarget).find('input[name="question"]:checked').val();
+    const input = $(event.currentTarget)
+      .find('input[name="question"]:checked')
+      .val();
     submitAnswer(input);
-    
     renderView();
-  }));
+  });
 }
 
 function handleQuizApp() {
