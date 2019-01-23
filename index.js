@@ -175,6 +175,13 @@ function questionResultTemplate() {
 }
 
 function resultsTemplate() {
+  const score = STATE.score / ANSWERS.length;
+  let title = '';
+  let img = '';
+  if (score >= .80){
+    title = 'Hall of Famer';
+    img = 
+  }
   return `<h1>Results:</h1>
           <img src="https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Fgmenhq.com%2Ffiles%2F2014%2F08%2Fmichael-strahan-nfl-hall-of-fame-enshrinees-gold-jacket-dinner.jpg" alt="Michael Strahan poses in his Hall of Fame jacket">
           <h2>Score: ${STATE.score}/${ANSWERS.length}</h2>
