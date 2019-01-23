@@ -11,7 +11,7 @@ const QUESTIONS = [
     image: {
       src:
         'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
-      alt: ''
+      alt: 'Mark Messier laughing with the Stanley Cup'
     }
   },
   {
@@ -19,8 +19,8 @@ const QUESTIONS = [
     answers: ['2000', '1997', '2008', '2018'],
     image: {
       src:
-        'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
-      alt: ''
+        'https://i.makeagif.com/media/10-22-2015/ok9Pv9.gif',
+      alt: 'Tiger Woods makes putt on 18th hole and celebrates'
     }
   },
   {
@@ -28,8 +28,8 @@ const QUESTIONS = [
     answers: ['0', '1', '2', '3'],
     image: {
       src:
-        'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
-      alt: ''
+        'https://thumbs.gfycat.com/TheseScratchyBoto-small.gif',
+      alt: 'Eli Manning holding up the Lombardi Trophy after winning the Super Bowl'
     }
   },
   {
@@ -42,8 +42,8 @@ const QUESTIONS = [
     ],
     image: {
       src:
-        'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
-      alt: ''
+        'http://go.newspapers.com/i/email/Ncom_HIH_Oct2016.jpg',
+      alt: 'Newspaper clipping and image of Fenway Park after Boston Americans win 1903 World Series'
     }
   },
   {
@@ -52,8 +52,8 @@ const QUESTIONS = [
     answers: ['0', '1', '2', '3'],
     image: {
       src:
-        'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
-      alt: ''
+        'https://media.giphy.com/media/l1J9PwaMlfmVhEMve/giphy.gif',
+      alt: 'Former US Mens Soccer Coach Bruce Arena shaking his head in disbielf'
     }
   },
   {
@@ -62,8 +62,8 @@ const QUESTIONS = [
     answers: ['Charles Barkley', 'Dennis Rodman', 'Sam Bowie', 'Sam Decker'],
     image: {
       src:
-        'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
-      alt: ''
+        'https://static.businessinsider.com/image/4fe4e0e669bedd9a54000010/image.jpg',
+      alt: 'Sam Bowie looking disguted after being drafted by the Portland Trail Blazers'
     }
   },
   {
@@ -71,8 +71,8 @@ const QUESTIONS = [
     answers: ['18', '10', '25', '23'],
     image: {
       src:
-        'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
-      alt: ''
+        'https://media.giphy.com/media/nst6esTet5QY/giphy.gif',
+      alt: 'Serena Williams yelling in excitement after winning a point'
     }
   },
   {
@@ -80,8 +80,8 @@ const QUESTIONS = [
     answers: ['1', '2', '3', '4'],
     image: {
       src:
-        'https://media1.tenor.com/images/3365e922d81ec32de48c8ac6f4ed2d02/tenor.gif',
-      alt: ''
+        'https://i.imgflip.com/1wyc1y.jpg',
+      alt: "ESPN's Chris Berman holding up a Buffalo Bills jersey showing a cirlce and the name 'Wagons'"
     }
   }
 ];
@@ -125,25 +125,25 @@ function questionTemplate() {
           <fieldset>
             <label class="question-choice-block">
               <input value="${
-                QUESTIONS[index].answers[0]
-              }" name="question" type="radio" required />${
-    QUESTIONS[index].answers[0]
-  }
+  QUESTIONS[index].answers[0]
+}" name="question" type="radio" required />${
+  QUESTIONS[index].answers[0]
+}
             </label>
             <label class="question-choice-block">
               <input value="${
-                QUESTIONS[index].answers[1]
-              }" name="question" type="radio"  />${QUESTIONS[index].answers[1]}
+  QUESTIONS[index].answers[1]
+}" name="question" type="radio"  />${QUESTIONS[index].answers[1]}
             </label>
             <label class="question-choice-block">
               <input value="${
-                QUESTIONS[index].answers[2]
-              }" name="question" type="radio" />${QUESTIONS[index].answers[2]}
+  QUESTIONS[index].answers[2]
+}" name="question" type="radio" />${QUESTIONS[index].answers[2]}
             </label>
             <label class="question-choice-block">
               <input value="${
-                QUESTIONS[index].answers[3]
-              }" name="question" type="radio" />${QUESTIONS[index].answers[3]}
+  QUESTIONS[index].answers[3]
+}" name="question" type="radio" />${QUESTIONS[index].answers[3]}
             </label>
             <button type="submit" value="submit" class="submit-button js-submit-button">Submit</button>
           </fieldset>
@@ -166,10 +166,10 @@ function questionResultTemplate() {
               alt="${QUESTIONS[index].image.alt}"
             />
             ${
-              !STATE.correct
-                ? `<h2>The correct answer was ${ANSWERS[index]}</h2>`
-                : ''
-            }
+  !STATE.correct
+    ? `<h2>The correct answer was ${ANSWERS[index]}</h2>`
+    : ''
+}
             <button class="next-button js-next-button" type="button">Next</button>
           </section>`;
 }
