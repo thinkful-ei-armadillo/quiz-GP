@@ -1,4 +1,19 @@
 'use strict';
+
+//retrieved this from stackoverflow
+Array.prototype.shuffle = function() {
+  var input = this;
+
+  for (var i = input.length - 1; i >= 0; i--) {
+    var randomIndex = Math.floor(Math.random() * (i + 1));
+    var itemAtIndex = input[randomIndex];
+
+    input[randomIndex] = input[i];
+    input[i] = itemAtIndex;
+  }
+  return input;
+};
+
 const QUESTIONS = [
   {
     question: 'Who won the Stanley Cup in 1994?',
@@ -97,10 +112,12 @@ const ANSWERS = [
 ];
 
 const STATE = {
-  questionIndex: 0,
+  questionCount: 0,
+  maxQuestions: 5,
   score: 0,
   correct: false,
-  view: 'START'
+  view: 'START',
+  questionOrder: []
 };
 
 function startTemplate() {
@@ -111,10 +128,22 @@ function startTemplate() {
 }
 
 function questionTemplate() {
-  const index = STATE.questionIndex;
+  const index = STATE.questionOrder[STATE.questionCount];
+  let choices = [...QUESTIONS[index].answers].shuffle();
+  let choicesHTML = '';
+
+  for (let i = 0; i < choices.length; i++) {
+    choicesHTML += `
+    <label class="question-choice-block">
+      <input value="${choices[i]}" 
+      name="question" type="radio" required />
+      ${choices[i]}
+    </label>`;
+  }
+
   return `<header role="banner">
         <ul class="js-results results">
-          <li><b>Q:</b> ${index + 1}/${ANSWERS.length}</li>
+          <li><b>Q:</b> ${STATE.questionCount + 1}/${STATE.maxQuestions}</li>
           <li><b>Score:</b> ${STATE.score}</li>
         </ul>
       </header>
@@ -122,28 +151,7 @@ function questionTemplate() {
         <h1>${QUESTIONS[index].question}</h1>
         <form class="question-form js-question-form">
           <fieldset>
-            <label class="question-choice-block">
-              <input value="${
-                QUESTIONS[index].answers[0]
-              }" name="question" type="radio" required />${
-    QUESTIONS[index].answers[0]
-  }
-            </label>
-            <label class="question-choice-block">
-              <input value="${
-                QUESTIONS[index].answers[1]
-              }" name="question" type="radio"  />${QUESTIONS[index].answers[1]}
-            </label>
-            <label class="question-choice-block">
-              <input value="${
-                QUESTIONS[index].answers[2]
-              }" name="question" type="radio" />${QUESTIONS[index].answers[2]}
-            </label>
-            <label class="question-choice-block">
-              <input value="${
-                QUESTIONS[index].answers[3]
-              }" name="question" type="radio" />${QUESTIONS[index].answers[3]}
-            </label>
+            ${choicesHTML}
             <button type="submit" value="submit" class="submit-button js-submit-button">Submit</button>
           </fieldset>
         </form>
@@ -151,10 +159,12 @@ function questionTemplate() {
 }
 
 function questionResultTemplate() {
-  const index = STATE.questionIndex;
+  const index = STATE.questionOrder[STATE.questionCount];
   return `<header role="banner">
             <ul class="js-results results">
-              <li><b>Q:</b> ${index + 1}/${ANSWERS.length}</li>
+              <li><b>Q:</b> ${STATE.questionCount + 1}/${
+    STATE.maxQuestions
+  }</li>
               <li><b>Score:</b> ${STATE.score}</li>
             </ul>
           </header>
@@ -174,11 +184,11 @@ function questionResultTemplate() {
 }
 
 function resultsTemplate() {
-  const score = STATE.score / ANSWERS.length;
+  const score = STATE.score / STATE.maxQuestions;
   let title = '';
   let img = '';
   let alt = '';
-  if (score >= 0.875) {
+  if (score >= 0.8) {
     title = 'Hall of Famer';
     img =
       'https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Fgmenhq.com%2Ffiles%2F2014%2F08%2Fmichael-strahan-nfl-hall-of-fame-enshrinees-gold-jacket-dinner.jpg';
@@ -201,7 +211,7 @@ function resultsTemplate() {
   }
   return `<h1>You are: ${title}</h1>
           <img src="${img}" alt="${alt}">
-          <h2>Score: ${STATE.score}/${ANSWERS.length}</h2>
+          <h2>Score: ${STATE.score}/${STATE.maxQuestions}</h2>
           <button class="restart-quiz js-restart-quiz" type="button">Take it again?</button>`;
 }
 
@@ -218,9 +228,16 @@ function renderView() {
 }
 
 function initializeQuiz() {
-  STATE.questionIndex = 0;
+  STATE.questionOrder = [];
+  STATE.questionCount = 0;
   STATE.score = 0;
-  STATE.view = 'START';
+  updateCurrentView('QUESTION');
+
+  for (let i = 0; i < ANSWERS.length; i++) {
+    STATE.questionOrder.push(i);
+  }
+
+  STATE.questionOrder.shuffle();
 }
 
 function updateCurrentView(view) {
@@ -229,7 +246,8 @@ function updateCurrentView(view) {
 
 function submitAnswer(input) {
   updateCurrentView('QUESTION_RESULT');
-  if (input === ANSWERS[STATE.questionIndex]) {
+  const index = STATE.questionOrder[STATE.questionCount];
+  if (input === ANSWERS[index]) {
     STATE.score++;
     STATE.correct = true;
   } else {
@@ -238,8 +256,8 @@ function submitAnswer(input) {
 }
 
 function clickNext() {
-  STATE.questionIndex++;
-  if (STATE.questionIndex === ANSWERS.length) {
+  STATE.questionCount++;
+  if (STATE.questionCount === STATE.maxQuestions) {
     STATE.view = 'RESULTS';
   } else {
     STATE.view = 'QUESTION';
@@ -248,14 +266,14 @@ function clickNext() {
 
 function handleStartQuiz() {
   $('main').on('click', '.js-quiz-start', function(event) {
-    updateCurrentView('QUESTION');
+    initializeQuiz();
     renderView();
   });
 }
 
 function handleRestartQuiz() {
   $('main').on('click', '.js-restart-quiz', function(event) {
-    initializeQuiz();
+    STATE.view = 'START';
     renderView();
   });
 }
