@@ -18,8 +18,7 @@ const QUESTIONS = [
     question: 'When did Tiger Woods win his last major championship?',
     answers: ['2000', '1997', '2008', '2018'],
     image: {
-      src:
-        'https://i.makeagif.com/media/10-22-2015/ok9Pv9.gif',
+      src: 'https://i.makeagif.com/media/10-22-2015/ok9Pv9.gif',
       alt: 'Tiger Woods makes putt on 18th hole and celebrates'
     }
   },
@@ -27,9 +26,9 @@ const QUESTIONS = [
     question: 'How many Super Bowl rings does Eli Manning have?',
     answers: ['0', '1', '2', '3'],
     image: {
-      src:
-        'https://thumbs.gfycat.com/TheseScratchyBoto-small.gif',
-      alt: 'Eli Manning holding up the Lombardi Trophy after winning the Super Bowl'
+      src: 'https://thumbs.gfycat.com/TheseScratchyBoto-small.gif',
+      alt:
+        'Eli Manning holding up the Lombardi Trophy after winning the Super Bowl'
     }
   },
   {
@@ -41,9 +40,9 @@ const QUESTIONS = [
       'Brooklyn Dodgers'
     ],
     image: {
-      src:
-        'http://go.newspapers.com/i/email/Ncom_HIH_Oct2016.jpg',
-      alt: 'Newspaper clipping and image of Fenway Park after Boston Americans win 1903 World Series'
+      src: 'http://go.newspapers.com/i/email/Ncom_HIH_Oct2016.jpg',
+      alt:
+        'Newspaper clipping and image of Fenway Park after Boston Americans win 1903 World Series'
     }
   },
   {
@@ -51,9 +50,9 @@ const QUESTIONS = [
       "How many times has the US Men's National Team won the FIFA World Cup?",
     answers: ['0', '1', '2', '3'],
     image: {
-      src:
-        'https://media.giphy.com/media/l1J9PwaMlfmVhEMve/giphy.gif',
-      alt: 'Former US Mens Soccer Coach Bruce Arena shaking his head in disbielf'
+      src: 'https://media.giphy.com/media/l1J9PwaMlfmVhEMve/giphy.gif',
+      alt:
+        'Former US Mens Soccer Coach Bruce Arena shaking his head in disbielf'
     }
   },
   {
@@ -63,15 +62,15 @@ const QUESTIONS = [
     image: {
       src:
         'https://static.businessinsider.com/image/4fe4e0e669bedd9a54000010/image.jpg',
-      alt: 'Sam Bowie looking disguted after being drafted by the Portland Trail Blazers'
+      alt:
+        'Sam Bowie looking disguted after being drafted by the Portland Trail Blazers'
     }
   },
   {
     question: 'How many Grand Slams has Serena Williams won?',
     answers: ['18', '10', '25', '23'],
     image: {
-      src:
-        'https://media.giphy.com/media/nst6esTet5QY/giphy.gif',
+      src: 'https://media.giphy.com/media/nst6esTet5QY/giphy.gif',
       alt: 'Serena Williams yelling in excitement after winning a point'
     }
   },
@@ -79,9 +78,9 @@ const QUESTIONS = [
     question: 'How many NFL teams are based in New York?',
     answers: ['1', '2', '3', '4'],
     image: {
-      src:
-        'https://i.imgflip.com/1wyc1y.jpg',
-      alt: "ESPN's Chris Berman holding up a Buffalo Bills jersey showing a cirlce and the name 'Wagons'"
+      src: 'https://i.imgflip.com/1wyc1y.jpg',
+      alt:
+        "ESPN's Chris Berman holding up a Buffalo Bills jersey showing a cirlce and the name 'Wagons'"
     }
   }
 ];
@@ -125,25 +124,25 @@ function questionTemplate() {
           <fieldset>
             <label class="question-choice-block">
               <input value="${
-  QUESTIONS[index].answers[0]
-}" name="question" type="radio" required />${
-  QUESTIONS[index].answers[0]
-}
+                QUESTIONS[index].answers[0]
+              }" name="question" type="radio" required />${
+    QUESTIONS[index].answers[0]
+  }
             </label>
             <label class="question-choice-block">
               <input value="${
-  QUESTIONS[index].answers[1]
-}" name="question" type="radio"  />${QUESTIONS[index].answers[1]}
+                QUESTIONS[index].answers[1]
+              }" name="question" type="radio"  />${QUESTIONS[index].answers[1]}
             </label>
             <label class="question-choice-block">
               <input value="${
-  QUESTIONS[index].answers[2]
-}" name="question" type="radio" />${QUESTIONS[index].answers[2]}
+                QUESTIONS[index].answers[2]
+              }" name="question" type="radio" />${QUESTIONS[index].answers[2]}
             </label>
             <label class="question-choice-block">
               <input value="${
-  QUESTIONS[index].answers[3]
-}" name="question" type="radio" />${QUESTIONS[index].answers[3]}
+                QUESTIONS[index].answers[3]
+              }" name="question" type="radio" />${QUESTIONS[index].answers[3]}
             </label>
             <button type="submit" value="submit" class="submit-button js-submit-button">Submit</button>
           </fieldset>
@@ -166,10 +165,10 @@ function questionResultTemplate() {
               alt="${QUESTIONS[index].image.alt}"
             />
             ${
-  !STATE.correct
-    ? `<h2>The correct answer was ${ANSWERS[index]}</h2>`
-    : ''
-}
+              !STATE.correct
+                ? `<h2>The correct answer was ${ANSWERS[index]}</h2>`
+                : ''
+            }
             <button class="next-button js-next-button" type="button">Next</button>
           </section>`;
 }
@@ -178,12 +177,30 @@ function resultsTemplate() {
   const score = STATE.score / ANSWERS.length;
   let title = '';
   let img = '';
-  if (score >= .80){
+  let alt = '';
+  if (score >= 0.875) {
     title = 'Hall of Famer';
-    img = 
+    img =
+      'https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Fgmenhq.com%2Ffiles%2F2014%2F08%2Fmichael-strahan-nfl-hall-of-fame-enshrinees-gold-jacket-dinner.jpg';
+    alt = 'Michael Strahan poses in his Hall of Fame jacket';
+  } else if (score >= 0.6) {
+    title = 'All-Star';
+    img =
+      'http://www.citysportsreport.com/wp-content/uploads/2014/07/LeBronLoveKyrie.jpg';
+    alt = 'Lebron James slapping hands with his teammates';
+  } else if (score >= 0.4) {
+    title = 'Rookie';
+    img =
+      'http://images.performgroup.com/di/library/omnisport/16/8c/luka-doncic-cropped_rajx9s0ypqad1qqvynqg7kk7m.jpg?t=1786219224';
+    alt = 'Luka Doncic, rookie from Mavs, makes a funny face';
+  } else {
+    title = 'Benchwarmer';
+    img =
+      'https://images.csmonitor.com/csm/2013/01/0106-Robert-Griffin-III_1.jpg';
+    alt = 'RGIII sitting on the bench with a knee injury';
   }
-  return `<h1>Results:</h1>
-          <img src="https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Fgmenhq.com%2Ffiles%2F2014%2F08%2Fmichael-strahan-nfl-hall-of-fame-enshrinees-gold-jacket-dinner.jpg" alt="Michael Strahan poses in his Hall of Fame jacket">
+  return `<h1>You are: ${title}</h1>
+          <img src="${img}" alt="${alt}">
           <h2>Score: ${STATE.score}/${ANSWERS.length}</h2>
           <button class="restart-quiz js-restart-quiz" type="button">Take it again?</button>`;
 }
@@ -268,4 +285,4 @@ function handleQuizApp() {
   handleRestartQuiz();
 }
 
-$(handleQuizApp());
+$(handleQuizApp);
